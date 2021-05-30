@@ -1,0 +1,16 @@
+{
+  "name": "api-generator",
+  "version": "1.0.0",
+  "description": "This app generates static APIs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joshua Ellis",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "handlebars": "^4.7.7",
+    "yargs": "^17.0.1"
+  }
+}

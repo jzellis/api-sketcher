@@ -1,0 +1,94 @@
+{
+	 
+	"title":"Users", 
+	"description":"The user object", 
+	"singular":"user", 
+	"plural":"users", 
+	"apiEndpoint":"users", 
+	"properties":[
+		{ 
+			
+			"name": "username",
+			"type": "String", 
+			"required" : true,
+			"maxLength": 64,
+			"minLength": 2,
+			"ui": {
+				"inputType": "text", 
+				"label" : "Username"
+				},
+			"index": true
+			
+		},
+		{
+			"name": "email",
+			"type" : "String",
+			"required" : true,
+			"ui" : {
+				"inputType": "email",
+				"label" : "Email"
+			},
+			"index": true
+
+		},
+		{
+			"name": "password",
+			"type" : "String",
+			"required" : true,
+			"ui" : {
+				"inputType": "password",
+				"label" : "Password"
+			}
+		},
+		{
+			"name": "fullName",
+			"type" : "String",
+			"required" : true,
+			"minLength": 1,
+			"maxLength" : 256,
+			"ui" : {
+				"inputType": "text",
+				"label" : "Full Name"
+			}
+		},
+		{
+			"name": "bio",
+			"type" : "String",
+			"required" : false,
+			"ui" : {
+				"inputType": "textarea",
+				"label" : "Bio"
+			}
+		},
+		{
+			"name": "location",
+			"type" : "String",
+			"required" : false,
+			"ui" : {
+				"inputType": "text",
+				"label" : "Location"
+			}
+		},
+		{
+			"name": "permissions",
+			"type" : "String",
+			"required" : false,
+			"ui" : {
+				"inputType": "select",
+				"options" : [
+						{
+						"label" : "Admin",
+						"value" : "admin"
+						},
+{
+						"label" : "User",
+						"value" : "user"
+					}
+						],
+				"label" : "User Level"
+			}
+		}	
+	],
+			"dateAdded": true,
+			"dateUpdated": true
+		}
