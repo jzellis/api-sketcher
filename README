@@ -1,0 +1,53 @@
+API SKETCHER
+
+tl;dr: A Node app for rapidly generating a Node/Mongo/Express/static HTML API from a directory of data object description JSON files.
+
+The Problem
+
+Building an API from scratch is incredibly irritating -- almost as irritating as working with most modern highly opinionated isomorphic frameworks, which are often bloated, overfeatured and apparently designed by dangerous lunatics with very peculiar ideas about how code ought to work.
+
+I often find myself spending most of my development time working around the assumptions of a given framework, rather than simply getting stuff done.
+
+The Solution
+
+Api Sketcher (it's a crap name but I haven't thought of a better one yet) is *not* a framework. It's a framework generator, based on one simple assumption: that the thing you're trying to build is based on creating, reading, updating and deleting data objects.
+
+How It Works
+
+1. You create a folder and populate it with .json files. Each file describes a data object, such as a User or a Post or an Invoice. Every object has metadata -- its name, a description of what it is, what the API endpoint for interacting with this particular sort of object should be -- and properties. Each property subobject of a data object includes basic database schema stuff, like type and whether it's required, and also UI information for creating an HTML form to interact with this property of this object.
+
+2. Run API Sketcher, with your folder of object definitions as the --source_dir argument and an output directory as the --output_dir argument.
+
+3. CD into that output directory, run `npm install` and then `node index.js`, and you now have a simple, functioning API.
+
+What It Does 
+
+Let's say you've only got one data model definition file in your source directory, for a User object. When you run API Sketcher, it does the following:
+
+1. Creates a Mongoose UserSchema schema and User model in /src/schema/users.js. This model does not have indices defined, does not have nested objects or remote keys or anything like that. Creating these things is what you're paid for, nerd. This is just a super simple MongoDB document model with basic property types like String or Number.
+
+2. Creates four Express routes: user_get, user_post, user_put and user_delete, and registers the related API endpoints, such as GET /api/users/:id and POST /api.users. It also generates a route definition file for each of these with the related Mongoose function, like Users.findOne() and Users.findOneAndUpdate() and Users.create().
+
+3. Generates a static HTML document with a nice, Bootstrap-formatted form in it for creating a User record. You can chop this up into React components or whatever you like to your heart's content.
+
+4. Creates an extremely simple index.js which basically builds a bog simple Express server that serves up an API and the static HTML files we've just generated.
+
+5. Not a damn thing else.
+
+Why Would You Want This?
+
+Because you don't want to use an existing framework for your app, but you also don't want the hassle of generating everything yourself from scratch. Because you'd rather just define your data objects in detail in one place and have boilerplate code created for you so you can skip this excruciatingly dull stuff and get to the business of actually doing the cool stuff that makes you feel like your [comp-sci degree/code bootcamp fees/decades of sitting in dark rooms alone like a goddamn mushroom learning how to do this stuff] was not wasted.
+
+Installation and usage:
+
+1. Clone the repo, run node install, then node app.js --source_dir <your directory of data objects> --output_dir <your output dir>, then cd into <your output dir>/src, run node install again, then run node index.js 
+
+2. That's it.
+
+Current Status
+
+It runs and does what it says, but nothing else.
+
+Roadmap
+
+Ot will be cooler and more flexible in the future. I also need to, y'know, document it. If you're seeing this... actually, I don't know why you're seeing this unless you're one of the people who saw my post about it on my Facebook profile. If you're not, go away and come back when this is actually useful to anyone except me and people who can slide into my DMs with questions about it.
