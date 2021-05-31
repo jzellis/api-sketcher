@@ -1,5 +1,5 @@
 #API Sketcher
-*(crap name to be updated later)
+*(crap name to be updated later)*
 
 **API Sketcher** uses data object model definition JSON files to generate a barebones boilerplate Node.js API based on MongoDB/Mongoose and Express, with Mongoose schema and models and simple REST/CRUD API endpoints for each data object model, as well as HTML forms for creating/editing objects that can be chopped up and used as React components or in static HTML files or templates.
 
