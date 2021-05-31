@@ -1,6 +1,6 @@
 # Tyburn
 
-** Tyburn** uses data object model definition JSON files to generate a barebones boilerplate Node.js API based on MongoDB/Mongoose and Express, with Mongoose schema and models and simple REST/CRUD API endpoints for each data object model, as well as HTML forms for creating/editing objects that can be chopped up and used as React components or in static HTML files or templates.
+**Tyburn** uses data object model definition JSON files to generate a barebones boilerplate Node.js API based on MongoDB/Mongoose and Express, with Mongoose schema and models and simple REST/CRUD API endpoints for each data object model, as well as HTML forms for creating/editing objects that can be chopped up and used as React components or in static HTML files or templates.
 
 It uses Handlebars to render Javascript and HTML to static files. You can very quickly design your basic app data architecture, and Tyburn will turn it into simple working code that you can then add to or edit to your heart's content.
 
@@ -9,7 +9,7 @@ Clone or download the repo to your local machine and run `node install` to downl
 
 ## Usage
 
-`node app.js --source_dir `*source directory for object JSON files*` --target_dir `*target directory for rendered API source files*`
+`node app.js --source_dir `**source directory for object JSON files**` --target_dir `**target directory for rendered API source files**`
 
 Once your API is rendered, cd into `target_dir/src` and run `node install`, and then `node index.js`.
 
