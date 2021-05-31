@@ -1,0 +1,37 @@
+{
+
+	"title": "Comments",
+	"description": "The comments object",
+	"singular": "comment",
+	"plural": "comments",
+	"apiEndpoint": "comments",
+	"properties": [{
+			"name": "authorId",
+			"type": "ObjectId",
+			"ui": {
+				"inputType": "text",
+				"label": "Author ID"
+			}
+		},
+		{
+			"name": "postId",
+			"type": "ObjectId",
+			"ui": {
+				"inputType": "text",
+				"label": "Post ID"
+			}
+		},
+		{
+			"name": "body",
+			"type": "String",
+			"required": true,
+			"ui": {
+				"inputType": "textarea",
+				"label": "Email"
+			}
+
+		}
+	],
+	"dateAdded": true,
+	"dateUpdated": true
+}

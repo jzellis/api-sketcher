@@ -8,6 +8,7 @@ outputDir = argv['output_dir'] || "./output/",
 sourceDir = argv['source_dir'] || "./source",
 mongoURL = argv['mongo_url'] || "mongodb://127.0.0.1/app",
 appName = argv['app_name'] || "appName",
+apiPath = argv['api_path'] || "/api/v1/",
 port = argv['port'] || 80,
 appTpl = Handlebars.compile(fs.readFileSync(tplDir + 'app-index.tpl', "utf-8")),
 packageTpl = Handlebars.compile(fs.readFileSync(tplDir + 'package.json.tpl', "utf-8")),
@@ -18,10 +19,10 @@ routePostTpl = Handlebars.compile(fs.readFileSync(tplDir + 'route_post.tpl', "ut
 routePutTpl = Handlebars.compile(fs.readFileSync(tplDir + 'route_put.tpl', "utf-8")),
 routeDeleteTpl = Handlebars.compile(fs.readFileSync(tplDir + 'route_delete.tpl', "utf-8")),
 htmlTpl = Handlebars.compile(fs.readFileSync(tplDir + 'html-form.tpl', "utf-8")),
-files = fs.readdirSync(sourceDir),
-settings = {appName: appName, mongoURL: mongoURL, port: port};
+settings = {appName: appName, mongoURL: mongoURL, port: port, apiPath: apiPath};
 dObjs = [];
 
+let files = fs.readdirSync(sourceDir);
 Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
     return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
 });
@@ -49,8 +50,12 @@ if (fs.existsSync(outputDir)){
 generateFiles(outputDir);
 
 // Loads all the data object definitions from files in the source directory
+files = files.filter(function(file) {
+    return path.extname(file).toLowerCase() === ".json";
+});
+
 files.forEach( file => {
-	console.log(`Parsing ${sourceDir}/${file}`)
+	console.log(`Parsing ${sourceDir}${file}`)
 
 	try{
 		let f = fs.readFileSync(sourceDir + "/" + file,"utf-8");
@@ -66,8 +71,9 @@ files.forEach( file => {
 });
 
 // Iterates through the list of data objects, creating schema and route and static HTML form files for each one
-let RouteIndexOut = routesIndexTpl({objs: dObjs});
+let RouteIndexOut = routesIndexTpl({settings: settings, objs: dObjs});
 try{
+	console.log("Creating routes index file...")
 	fs.writeFileSync(`${outputDir}src/routes/index.js`,RouteIndexOut);
 }catch(err){
 	console.error(err)
@@ -84,6 +90,7 @@ dObjs.forEach(d => {
 	let htmlOut = htmlTpl(d);
 
 	try{
+		console.log(`Creating ${d.title} routes and forms...`)
 		fs.writeFileSync(`${outputDir}src/schema/${d.title}.js`,schemaOut);
 		fs.writeFileSync(`${outputDir}src/routes/${d.title}_get.js`,getOut);
 		fs.writeFileSync(`${outputDir}src/routes/${d.title}_post.js`,postOut);
@@ -109,9 +116,12 @@ function generateFiles(outputDir){
     fs.mkdirSync(outputDir + "src/routes");
     fs.mkdirSync(outputDir + "src/static");
 	let appOut = appTpl(settings);
+	console.log("Creating main app file...")
 	fs.writeFileSync(`${outputDir}src/index.js`,appOut);
 
 	let packageOut = packageTpl(settings);
+	console.log("Creating package.json file...")
+
 	fs.writeFileSync(`${outputDir}src/package.json`,packageOut);
 
 

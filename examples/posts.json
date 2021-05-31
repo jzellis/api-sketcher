@@ -1,0 +1,50 @@
+{
+
+	"title": "Posts",
+	"description": "The posts object",
+	"singular": "post",
+	"plural": "posts",
+	"apiEndpoint": "posts",
+	"properties": [{
+			"name": "authorId",
+			"type": "ObjectId",
+			"ui": {
+				"inputType": "text",
+				"label": "Author ID"
+			}
+		},
+		{
+
+			"name": "title",
+			"type": "String",
+			"required": true,
+			"maxLength": 1024,
+			"minLength": 1,
+			"ui": {
+				"inputType": "text",
+				"label": "Title"
+			}
+		},
+		{
+			"name": "body",
+			"type": "String",
+			"required": true,
+			"ui": {
+				"inputType": "textarea",
+				"label": "Email"
+			}
+
+		},
+		{
+			"name": "tags",
+			"type": "String",
+
+			"ui": {
+				"inputType": "text",
+				"label": "Tags"
+			}
+		}
+	],
+	"dateAdded": true,
+	"dateUpdated": true
+}
