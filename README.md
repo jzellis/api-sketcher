@@ -124,7 +124,7 @@ This file will generate a new folder with this structure:
     - Users.js           
   - /routes              
     - index.js           
-    - Users
+    - /Users
       - delete.js    
       - getMany.js      
       - getOne.js       
