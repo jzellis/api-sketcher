@@ -109,7 +109,8 @@ The definitions for each Data Object Model are stored in individual JSON files. 
 				"label" : "User Level"
 			}
 		}	
-	]
+	],
+	generateFixtures: 3
 		}
 ```
 
@@ -130,6 +131,8 @@ This file will generate a new folder with this structure:
  - package.json         // The package file for the generated app
 
 The GET, PUT and DELETE routes take an `**id**` param, as in **/api/users/12345**. GET retrieves the Users document of that ID; POST (without a specified ID, of course) inserts the body of the POST request as a new User document; PUT updates the document with the specified ID with the body of the post; DELETE removes the record with that ID.
+
+If the `generateFixtures` property is set to an integer, Tyburn will generate that number of random documents in the database for that model, so you can instantly start working with displaying objects.
 
 These are extremely simple placeholder functions defined in **/src/routes/<object.singuler>_get.js, _post.js, _put.js** and **_delete.js**. By default they have zero middleware and zero security -- Tyburn literally just creates the files with basic CRUD functions already written for you to get started from.
 
