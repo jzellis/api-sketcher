@@ -1,5 +1,5 @@
 const mongoose = require('mongoose'),
-    {{title}} = require("../../schema/{{title}}");
+    {{title}} = require("../../schema/db/{{title}}");
 
 module.exports = async (req, res, next) => {
     let id = req.params.id; 

@@ -15,6 +15,8 @@
     "express": "^4.17.1",
     "mongoose": "^5.12.12",
     "fakingoose": "^2.0.3",
-    "faker": "^5.5.3"
+    "faker": "^5.5.3",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.5.0"
   }
 }

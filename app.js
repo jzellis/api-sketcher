@@ -14,7 +14,8 @@ const fs = require('fs'),
 		js:{
 		app: Handlebars.compile(fs.readFileSync(tplDir + 'js/index.js.tpl', "utf-8")),
 		package:  Handlebars.compile(fs.readFileSync(tplDir + 'js/package.json.tpl', "utf-8")),
-		schema:  Handlebars.compile(fs.readFileSync(tplDir + 'js/schema.js.tpl', "utf-8"))
+		mongooseSchema:  Handlebars.compile(fs.readFileSync(tplDir + 'js/mongoose-schema.js.tpl', "utf-8")),
+		graphQlSchema:  Handlebars.compile(fs.readFileSync(tplDir + 'js/graphql-schema.js.tpl', "utf-8"))
 	},
 		routes: {
 			index:  Handlebars.compile(fs.readFileSync(tplDir + 'js/routes/index.js.tpl', "utf-8")),
@@ -85,28 +86,18 @@ files.forEach(file => {
 	}
 });
 
-// Iterates through the list of data objects, creating schema and route and static HTML form files for each one
-let RouteIndexOut = templates.routes.index({
-	settings: settings,
-	objs: dObjs
-});
-let HtmlIndexOut = templates.html.index({
-	settings: settings,
-	objs: dObjs
-});
-try {
-	console.log("Creating routes index file...")
-	fs.writeFileSync(`${outputDir}src/routes/index.js`, RouteIndexOut);
-	fs.writeFileSync(`${outputDir}static/index.html`, HtmlIndexOut);
 
-} catch (err) {
-	console.error(err)
-}
+
+
 dObjs.forEach(d => {
+	d.graphQLType = d.singular.charAt(0).toUpperCase() + d.singular.slice(1);
+	d.properties.forEach(prop =>{
+		prop.graphQLType = prop.type === "ObjectId" ? "String" : prop.type; 
+	})
 	fs.mkdirSync(outputDir + "src/routes/" + d.title);
 	// Creates the schema
 	console.log(`Creating ${d.title} schema...`);
-	let schemaOut = templates.js.schema(d);
+	let mongooseSchemaOut = templates.js.mongooseSchema(d);
 	let getManyOut = templates.routes.getMany(d);
 	let getOneOut = templates.routes.getOne(d);
 	let postOut = templates.routes.post(d);
@@ -116,7 +107,7 @@ dObjs.forEach(d => {
 
 	try {
 		console.log(`Creating ${d.title} routes and forms...`)
-		fs.writeFileSync(`${outputDir}src/schema/${d.title}.js`, schemaOut);
+		fs.writeFileSync(`${outputDir}src/schema/db/${d.title}.js`, mongooseSchemaOut);
 		fs.writeFileSync(`${outputDir}src/routes/${d.title}/getMany.js`, getManyOut);
 		fs.writeFileSync(`${outputDir}src/routes/${d.title}/getOne.js`, getOneOut);
 		fs.writeFileSync(`${outputDir}src/routes/${d.title}/post.js`, postOut);
@@ -133,12 +124,38 @@ dObjs.forEach(d => {
 
 })
 
+try {
+
+	// Iterates through the list of data objects, creating schema and route and static HTML form files for each one
+let RouteIndexOut = templates.routes.index({
+	settings: settings,
+	objs: dObjs
+});
+let HtmlIndexOut = templates.html.index({
+	settings: settings,
+	objs: dObjs
+});
+
+let graphQlSchemaOut = templates.js.graphQlSchema({
+	settings: settings,
+	objs: dObjs
+});
+	console.log("Creating routes index file...")
+	fs.writeFileSync(`${outputDir}src/routes/index.js`, RouteIndexOut);
+	fs.writeFileSync(`${outputDir}static/index.html`, HtmlIndexOut);
+	fs.writeFileSync(`${outputDir}src/schema/graphql/schema.js`, graphQlSchemaOut);
+
+} catch (err) {
+	console.error(err)
+}
 
 function generateFiles(outputDir) {
 	console.log("Creating app directory structure...")
 	fs.mkdirSync(outputDir);
 	fs.mkdirSync(outputDir + "src/");
 	fs.mkdirSync(outputDir + "src/schema");
+	fs.mkdirSync(outputDir + "src/schema/db");
+	fs.mkdirSync(outputDir + "src/schema/graphql");
 	fs.mkdirSync(outputDir + "src/routes");
 	fs.mkdirSync(outputDir + "static");
 	let appOut = templates.js.app(settings);

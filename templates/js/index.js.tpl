@@ -1,9 +1,13 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const app = express();
-var cors = require('cors')
-const routes = require('./routes');
-const mongoose = require('mongoose');
+const express = require('express'),
+  bodyParser = require('body-parser')
+  app = express(),
+  cors = require('cors'),
+  routes = require('./routes'),
+  mongoose = require('mongoose'),
+  {schema, root} = require("./schema/graphql/schema.js"),
+  { graphqlHTTP } = require('express-graphql'),
+  { buildSchema } = require('graphql');
+
 
 var mongoDB = "{{mongoURL}}";
 mongoose.connect(mongoDB, {
@@ -25,6 +29,11 @@ app.use(bodyParser.json())
 app.set('json spaces', 2)
 // const urlencodedParser = bodyParser.urlencoded({ extended: false });
 app.use('/', routes);
+app.use('/graphql', graphqlHTTP({
+  schema: schema,
+  rootValue: root,
+  graphiql: true,
+}));
 let server;
 server = app.listen({{port}}, () => {
   console.log(`Listening to port {{port}}`);
