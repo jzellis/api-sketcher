@@ -116,19 +116,22 @@ The definitions for each Data Object Model are stored in individual JSON files. 
 
 This file will generate a new folder with this structure:
 
--/src/
  - /static/
-   - Users.html         // The HTML form for creating/editing a User
+   - index.html
+   - users.html         
+- /src/
  - /schema
-   - Users.js           // The Mongoose Schema/Model definition for the Users object
- - /routes              // API routes
-   - index.js           // The main route definitions, with `require()`s for each route method
-   - Users_delete.js    // The method for DELETE requests to the Users API endpoint
-   - Users_get.js       // The method for DELETE requests to the Users API endpoint
-   - Users_post.js      // The method for DELETE requests to the Users API endpoint
-   - Users_put.js       // The method for DELETE requests to the Users API endpoint
- - index.js             // The main API Node app
- - package.json         // The package file for the generated app
+   - Users.js           
+ - /routes              
+   - index.js           
+   - Users
+     - delete.js    
+     - getMany.js      
+     - getOne.js       
+     - post.js      
+     - put.js       
+ - index.js       
+ - package.json   
 
 The GET, PUT and DELETE routes take an `**id**` param, as in **/api/users/12345**. GET retrieves the Users document of that ID; POST (without a specified ID, of course) inserts the body of the POST request as a new User document; PUT updates the document with the specified ID with the body of the post; DELETE removes the record with that ID.
 
