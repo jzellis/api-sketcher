@@ -17,7 +17,7 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 app.use(cors())
-app.use(express.static('static'))
+app.use(express.static('../static'))
 app.use(bodyParser.urlencoded({
   extended: true
 }));
