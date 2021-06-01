@@ -120,18 +120,18 @@ This file will generate a new folder with this structure:
    - index.html
    - users.html         
 - /src/
- - /schema
-   - Users.js           
- - /routes              
-   - index.js           
-   - Users
-     - delete.js    
-     - getMany.js      
-     - getOne.js       
-     - post.js      
-     - put.js       
- - index.js       
- - package.json   
+  - /schema
+    - Users.js           
+  - /routes              
+    - index.js           
+    - Users
+      - delete.js    
+      - getMany.js      
+      - getOne.js       
+      - post.js      
+      - put.js       
+  - index.js       
+  - package.json   
 
 The GET, PUT and DELETE routes take an `**id**` param, as in **/api/users/12345**. GET retrieves the Users document of that ID; POST (without a specified ID, of course) inserts the body of the POST request as a new User document; PUT updates the document with the specified ID with the body of the post; DELETE removes the record with that ID.
 
