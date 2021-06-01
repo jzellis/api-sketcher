@@ -27,11 +27,12 @@
 			"required": true,
 			"ui": {
 				"inputType": "textarea",
-				"label": "Email"
+				"label": "Body"
 			}
 
 		}
 	],
 	"dateAdded": true,
-	"dateUpdated": true
+	"dateUpdated": true,
+	"generateFixtures": 5
 }

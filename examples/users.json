@@ -90,5 +90,7 @@
 		}	
 	],
 			"dateAdded": true,
-			"dateUpdated": true
+			"dateUpdated": true,
+			"generateFixtures": 20
+
 		}

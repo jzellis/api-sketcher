@@ -3,6 +3,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
+const {factory} = require('fakingoose');
 
 var {{singular}}Schema = new Schema({
 
@@ -22,4 +23,12 @@ var {{singular}}Schema = new Schema({
 
 
 const {{title}} = mongoose.model("{{title}}", {{singular}}Schema);
+
+{{#if generateFixtures}}
+const {{singular}}Factory = factory({{title}});
+for (i = 0; i < {{generateFixtures}}; i++) {
+mock = {{singular}}Factory.generate({});
+{{title}}.create(mock);
+}
+{{/if}}
 module.exports = {{title}};
