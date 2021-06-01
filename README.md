@@ -135,7 +135,7 @@ This file will generate a new folder with this structure:
 
 The GET, PUT and DELETE routes take an `**id**` param, as in **/api/users/12345**. GET retrieves the Users document of that ID; POST (without a specified ID, of course) inserts the body of the POST request as a new User document; PUT updates the document with the specified ID with the body of the post; DELETE removes the record with that ID.
 
-If the `generateFixtures` property is set to an integer, Tyburn will generate that number of random documents in the database for that model, so you can instantly start working with displaying objects.
+If the `generateFixtures` property is set to an integer, Tyburn will generate that number of random documents in the database for that model, so you can instantly start working with displaying objects. The value of each field is set by the `fixture` attribute, whose value should be either a value of the correct type (if you want them all to be the same) or a Javascript function for generating a value of the correct type; Tyburn includes Faker.js, so for example the value of an `email` fixture could be `"faker.internet.email()"`.
 
 These are extremely simple placeholder functions defined in **/src/routes/<object.singuler>_get.js, _post.js, _put.js** and **_delete.js**. By default they have zero middleware and zero security -- Tyburn literally just creates the files with basic CRUD functions already written for you to get started from.
 

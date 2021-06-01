@@ -17,7 +17,8 @@
 				"inputType": "text", 
 				"label" : "Username"
 				},
-			"index": true
+			"index": true,
+			"fixture" : "faker.internet.userName()"
 			
 		},
 		{
@@ -28,7 +29,9 @@
 				"inputType": "email",
 				"label" : "Email"
 			},
-			"index": true
+			"index": true,
+			"fixture": "faker.internet.email()"
+			
 
 		},
 		{
@@ -38,7 +41,8 @@
 			"ui" : {
 				"inputType": "password",
 				"label" : "Password"
-			}
+			},
+			"fixture" : "faker.internet.password()"
 		},
 		{
 			"name": "fullName",
@@ -49,7 +53,9 @@
 			"ui" : {
 				"inputType": "text",
 				"label" : "Full Name"
-			}
+			},
+			"fixture": "faker.name.findName()"
+			
 		},
 		{
 			"name": "bio",
@@ -58,7 +64,8 @@
 			"ui" : {
 				"inputType": "textarea",
 				"label" : "Bio"
-			}
+			},
+			"fixture": "faker.lorem.paragraphs(4)"
 		},
 		{
 			"name": "location",
@@ -67,7 +74,8 @@
 			"ui" : {
 				"inputType": "text",
 				"label" : "Location"
-			}
+			},
+			"fixture": "`${faker.address.city()}, $[faker.address.country()}`"
 		},
 		{
 			"name": "permissions",
@@ -91,6 +99,6 @@
 	],
 			"dateAdded": true,
 			"dateUpdated": true,
-			"generateFixtures": 20
+			"generatefixture": 20
 
 		}

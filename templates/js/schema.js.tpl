@@ -1,9 +1,10 @@
 /* Mongoose schema for {{plural}} */
 
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const ObjectId = Schema.ObjectId;
-const {factory} = require('fakingoose');
+const mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
+    ObjectId = Schema.ObjectId,
+    {factory} = require('fakingoose'),
+    faker = require('faker');
 
 var {{singular}}Schema = new Schema({
 
@@ -25,8 +26,23 @@ var {{singular}}Schema = new Schema({
 const {{title}} = mongoose.model("{{title}}", {{singular}}Schema);
 
 {{#if generateFixtures}}
-const {{singular}}Factory = factory({{title}});
+{{title}}.remove({});
 for (i = 0; i < {{generateFixtures}}; i++) {
+options = {
+    {{#each properties}}
+    {{#if fixture}}
+    {{name}} : { 
+        value: (object) => { 
+            return {{{fixture}}} 
+            }
+        },
+    {{/if}}
+    {{/each}}
+};
+{{singular}}Factory = factory({{title}}, options);
+
+
+
 mock = {{singular}}Factory.generate({});
 {{title}}.create(mock);
 }

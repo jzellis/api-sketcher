@@ -14,6 +14,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongoose": "^5.12.12",
-    "fakingoose": "^2.0.3"
+    "fakingoose": "^2.0.3",
+    "faker": "^5.5.3"
   }
 }
