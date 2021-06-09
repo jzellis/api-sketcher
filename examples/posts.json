@@ -14,8 +14,18 @@
 			}
 		},
 		{
+			"name": "authorId",
+			"description": "The ID of the author of the post.",
+			"type": "ObjectId",
+			"ui": {
+				"inputType": "text",
+				"label": "Author ID"
+			}
+		},
+		{
 
 			"name": "title",
+			"description": "The post title.",
 			"type": "String",
 			"required": true,
 			"maxLength": 1024,
@@ -27,6 +37,7 @@
 		},
 		{
 			"name": "body",
+			"description": "The body of the post.",
 			"type": "String",
 			"required": true,
 			"ui": {
@@ -37,6 +48,7 @@
 		},
 		{
 			"name": "tags",
+			"description": "The post tags, as a comma-separated list.",
 			"type": "String",
 
 			"ui": {
